@@ -20,6 +20,7 @@
 	src="<%=request.getContextPath()%>/resources/libs/jquery.min.v3.1.1.js"></script>
 <script
 	src="<%=request.getContextPath()%>/resources/libs/lightslider.js"></script>
+<script type="text/javascript" src="http://html5.kaltura.org/js"></script>
 
 
 
@@ -33,7 +34,7 @@
 
 <c:set var="player_id" value='${requestScope["player_id"]}' />
 
-<script src="https://cdnapisec.kaltura.com/p/2199811/sp/219981100/embedIframeJs/uiconf_id/36961672/partner_id/2199811"></script>
+<!-- <script src="https://cdnapisec.kaltura.com/p/2199811/sp/219981100/embedIframeJs/uiconf_id/36961672/partner_id/2199811"></script> -->
 <%-- <script
 	src='${script_source}/index.php/kwidget/cache_st/${cache_st}/wid/_${partner_id}/uiconf_id/${ui_conf_id}/entry_id/${entry_id}'> 
 
@@ -100,7 +101,22 @@
 <script> jQuery("#vod_close_button").hide();</script>
 		<div id="kaltura_player_1477484934" class="player-style"
 			style="height: 610px;">
-			<iframe src="http://kalturalivestream/index.php/kwidget/cache_st/1477654856/wid/_100/uiconf_id/6709457/entry_id/0_rz76fe6t" height="610px" width="100%" id="live"></iframe>	
+			<!-- <iframe src="http://kalturalivestream/index.php/kwidget/cache_st/1477654856/wid/_100/uiconf_id/6709457/entry_id/0_tz47yhuh" height="610px" width="100%" id="live"></iframe> -->	
+		<object id="kaltura_player" name="kaltura_player"
+        type="application/x-shockwave-flash"
+        allowFullScreen="true" allowNetworking="all"
+        allowScriptAccess="always" height="610" width="100%"
+        data="http://kalturalivestream/index.php/kwidget/cache_st/1477654856/wid/_100/uiconf_id/6709457/entry_id/0_tz47yhuh">
+        <param name="allowFullScreen" value="true" />
+        <param name="allowNetworking" value="all" />
+        <param name="allowScriptAccess" value="always" />
+        <param name="bgcolor" value="#000000" />
+        <param name="flashVars" value="&" />
+        <param name="movie" value="http://kalturalivestream/index.php/kwidget/cache_st/1477654856/wid/_100/uiconf_id/6709457/entry_id/0_tz47yhuh" />
+      </object>
+		
+		
+		
 		</div>
 
 

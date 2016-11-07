@@ -13,19 +13,11 @@ function changeMainUrl( xyz, current_play_type)
     
 
 	 jQuery("#vod_close_button").show();
-	 /*$("#player").html(kWidget.embed({
-			"targetId" : "kaltura_player_1477484934",
-			"wid" : "_2199811",
-			"uiconf_id" : 36776161,
-			"flashvars" : {
-				"streamerType" : "auto",
-					"autoPlay": true
-								},
-			"cache_st" : 1477484934,
-			"entry_id" : entryId
-		}));*/
 	 
-	 $('#live').attr('src',data_url_live); 
+	 
+	 
+	 $('#kaltura_player').attr('data',data_url_live); 
+	 $("#kaltura_player param[name=movie]").attr('value', data_url_live);
 	 $("#player").attr('data-current_play_type',current_play_type);
 	 
 	 
@@ -75,8 +67,10 @@ function playAdd( xyz, current_play_type, time_start)
 				"cache_st" : 1477643189,
 				"entry_id" : entryId
 			}));	*/
-	 $('#live').attr('src',"http://kalturalivestream/index.php/kwidget/cache_st/1477654856/wid/_100/uiconf_id/6709457/entry_id/"+entryId); 
-	 $("#player").attr('data-current_play_type',current_play_type);
+	// $('#live').attr('src',"http://kalturalivestream/index.php/kwidget/cache_st/1477654856/wid/_100/uiconf_id/6709457/entry_id/"+entryId); 
+		 $('#kaltura_player').attr('data',"http://kalturalivestream/index.php/kwidget/cache_st/1477654856/wid/_100/uiconf_id/6709457/entry_id/"+entryId); 
+		 $("#kaltura_player param[name=movie]").attr('value', "http://kalturalivestream/index.php/kwidget/cache_st/1477654856/wid/_100/uiconf_id/6709457/entry_id/"+entryId);
+		 $("#player").attr('data-current_play_type',current_play_type);
 	 
 }
 

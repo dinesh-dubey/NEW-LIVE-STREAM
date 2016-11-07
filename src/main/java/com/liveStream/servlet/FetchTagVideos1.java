@@ -145,22 +145,22 @@ try{
                                        .item(0)
                                        .getTextContent());
                                     
-                                    
-                                    metaData_media.put(eElement
+                                    metaData_media.put( eElement
+                                            .getElementsByTagName("id")
+                                            .item(0)
+                                            .getTextContent()+","+eElement
+                                            .getElementsByTagName("duration")
+                                            .item(0)
+                                            .getTextContent(),eElement
                                        .getElementsByTagName("name")
-                                       .item(0)
-                                       .getTextContent(), eElement
-                                       .getElementsByTagName("id")
-                                       .item(0)
-                                       .getTextContent()+","+eElement
-                                       .getElementsByTagName("duration")
                                        .item(0)
                                        .getTextContent());
                                  }
                                  
-                                 request.setAttribute("metaData_media", metaData_media);
-                                 request.getRequestDispatcher("/views/tavantads.jsp").forward(request, response);
+                                 
         }
+                             request.setAttribute("metaData_media", metaData_media);
+                             request.getRequestDispatcher("/views/tavantads.jsp").forward(request, response);
             }
             }catch(Exception e)
             {
