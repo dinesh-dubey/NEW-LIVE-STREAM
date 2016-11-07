@@ -28,7 +28,7 @@
  Please Select advertisment		
 			<select id="tagvideo" name="tagvideo">
     <c:forEach var="line" items="${metaData_media}">
-        <option value="${line.value}"><c:out value="${line.key}"/></option>
+        <option value="${line.key}"><c:out value="${line.value}"/></option>
     </c:forEach>
  </select>
 </div>
