@@ -159,6 +159,7 @@ public class Live extends HttpServlet {
 							property.getProperty("SCRIPT_SOURCE"));
 					request.setAttribute("ui_conf_id",
 							property.getProperty("UI_CONF_ID"));
+ 					request.setAttribute("live_entryId", property.getProperty("LIVE_ENTRY_ID"));
 				}
 			}
 		} catch (Exception e) {
@@ -199,7 +200,7 @@ public class Live extends HttpServlet {
 				Element root = doc.getDocumentElement();
 				NodeList nList = doc.getElementsByTagName("result");
 				Node nNode = nList.item(0);
-				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+				if (nNode.getNodeType() == Node.ELEMENT_NODE  && !sb.toString().contains("ENTRY_ID_NOT_FOUND")) {
 					Element eElement = (Element) nNode;
 					live_data.put("liveStreamName", eElement
 							.getElementsByTagName("name").item(0)
