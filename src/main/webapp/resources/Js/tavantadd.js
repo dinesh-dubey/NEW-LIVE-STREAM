@@ -1,6 +1,7 @@
 var taggedVideo="";
 
 jQuery(document).ready(function() {
+   
    taggedVideo  = $('#tagvideo').val();
    $('#tagvideo').on('change', function() {
 	   taggedVideo  = this.value;
@@ -11,8 +12,12 @@ jQuery(document).ready(function() {
 	       url:'AddContextVar',
 	       data:'taggedVideo='+ taggedVideo,
 	       success: function(data){
-	       console.log(taggedVideo);
+	          
+	    	   console.log(taggedVideo);
+	          
+	    	   
 	           }
+	   
 	   });
 	  });
 
