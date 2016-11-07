@@ -102,7 +102,11 @@ h3{
 .content-slider li img{
 	width:100%;
 	min-height: 167px;
-	opacity:0.5l
+	opacity:0.5;
+	height:167px;
+}
+.content-slider li a.active img{
+	opacity:1;
 }
 .lSSlideOuter .lSPager.lSpg{display:none;}
 

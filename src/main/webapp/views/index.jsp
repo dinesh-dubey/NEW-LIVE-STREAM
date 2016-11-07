@@ -143,11 +143,13 @@
 		<ul id="responsive" class="content-slider">
 			<c:forEach items="${list_vod}" var="vod_obj">
 
-				<li><a href="javascript:void(0)"
+				<li><a href="javascript:void(0)" class="thumbnail"
 					onclick="changeMainUrl('${vod_obj['media_entryId']}', 'vod')"><img
 						alt="Preview Image 1" src="${vod_obj['media_entry_thumbnail']} "
 						data-image="${vod_obj['media_entry_thumbnail']} "
-						data-description="${vod_obj['media_entry_name']} "> </a>
+						data-description="${vod_obj['media_entry_name']} ">
+							<small></small>
+							 </a>
 					<p>${vod_obj['media_entry_name']}</p></li>
 
 

@@ -1,6 +1,12 @@
 
 var entryId;
-var data_url_live;
+
+$(document).ready(function() {
+	$(".thumbnail").click(function () {
+	    $(".thumbnail").removeClass("active");
+	    $(this).addClass("active");        
+	});
+	});
 function changeMainUrl( xyz, current_play_type)
 {
 	

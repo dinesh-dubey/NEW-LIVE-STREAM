@@ -1,6 +1,11 @@
 package com.liveStream.servlet;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -10,81 +15,123 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
-import com.kaltura.client.KalturaApiException;
-import com.kaltura.client.types.KalturaBaseEntry;
-import com.kaltura.client.types.KalturaMediaInfo;
-import com.kaltura.client.types.KalturaMediaListResponse;
-import com.kaltura.client.types.KalturaMetadata;
-import com.kaltura.client.types.KalturaMetadataListResponse;
-import com.liveStream.KalturaSessionGen;
-import com.liveStream.KalturaUtil;
+import org.apache.log4j.Logger;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import com.liveStream.LoadProperty;
 
 /**
- * Servlet implementation class FetchTagVideos
+ * Servlet implementation class FetchTagVideos1
  */
 
 public class FetchTagVideos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public FetchTagVideos() {
-        super();
-        // TODO Auto-generated constructor stub
-        
-    }
+	private final static Logger LOGGER = Logger.getLogger(FetchTagVideos.class
+			.getName());
+	LoadProperty property = new LoadProperty();
+	public static String ks = "";
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-	
-	
-		KalturaSessionGen ksg=new KalturaSessionGen();
-
-		Map metaData_media=new HashMap<>();
-		KalturaMediaListResponse list;
-		KalturaUtil ku=new KalturaUtil();
-		
-		 
-		
-		try {
-			
-			
-			list = KalturaSessionGen.getClient().getMediaService().list();
-			if (list.totalCount > 0) {
-				System.out.println("The account contains " + list.totalCount + " entries.");
-				for (KalturaBaseEntry entry : list.objects) {
-					if(null != entry.tags &&entry.tags.equalsIgnoreCase(ku.propertyLoad
-							.getProperty("TAG_NAME_FOR_ADS"))){
-					metaData_media.put(entry.name,entry.id);
-					System.out.println("\t \"" + entry.name + "\""+" "+entry.tags + "\""+" "+entry.id);
-				
-				}}
-			} else {
-				System.out.println("This account doesn't have any entries in it.");
-			
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		URL obj = new URL(
+				"http://kalturalivestream/api_v3/?service=session&action=start&secret=e9d684a068e7ac7d99432f0a6583246e&userId=fc1e90f90de623f429208f7761c0f786&type=2&partnerId=100&expiry=345345345");
+		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		con.setRequestMethod("POST");
+		con.setRequestProperty("Content-Type",
+				"application/x-www-form-urlencoded");
+		int responseCode = con.getResponseCode();
+		LOGGER.info("POST Response Code :: " + responseCode);
+		if (responseCode == HttpURLConnection.HTTP_OK) { // success
+			BufferedReader in = new BufferedReader(new InputStreamReader(
+					con.getInputStream()));
+			String inputLine;
+			StringBuffer sb = new StringBuffer();
+			while ((inputLine = in.readLine()) != null) {
+				sb.append(inputLine);
 			}
-			System.out.println("The Tagged videos Count " + metaData_media.size() + " entries");
-			request.setAttribute("metaData_media", metaData_media);
-			request.getRequestDispatcher("/views/tavantads.jsp").forward(request, response);
-		} 
-		
-		catch (KalturaApiException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			in.close();
+			String abc = sb.toString();
+			ks = abc.substring(abc.indexOf("<result>"),
+					abc.indexOf("</result>")).replace("<result>", "");
+			getAdds(request, response, ks);
+		} else {
+			LOGGER.info("POST request not worked");
 		}
 	}
 
+	public void getAdds(HttpServletRequest request,
+			HttpServletResponse response, String ks) {
+		try {
+			Map<String, String> metaData_media = new HashMap<String, String>();
+			URL obj = new URL(
+					"http://kalturalivestream/api_v3/?service=media&action=list&ks="
+							+ ks + "&filter:tagsLike=tavant");
+			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+			con.setRequestMethod("POST");
+			con.setRequestProperty("Content-Type",
+					"application/x-www-form-urlencoded");
+
+			int responseCode = con.getResponseCode();
+			LOGGER.info("POST Response Code :: " + responseCode);
+
+			if (responseCode == HttpURLConnection.HTTP_OK) { // success
+				BufferedReader in = new BufferedReader(new InputStreamReader(
+						con.getInputStream()));
+				String inputLine;
+				StringBuffer sb = new StringBuffer();
+				while ((inputLine = in.readLine()) != null) {
+					sb.append(inputLine);
+				}
+				in.close();
+				DocumentBuilderFactory factory = DocumentBuilderFactory
+						.newInstance();
+				DocumentBuilder builder = factory.newDocumentBuilder();
+				StringBuilder xmlStringBuilder = new StringBuilder(
+						sb.toString());
+				ByteArrayInputStream input = new ByteArrayInputStream(
+						xmlStringBuilder.toString().getBytes("UTF-8"));
+				Document doc = builder.parse(input);
+				Element root = doc.getDocumentElement();
+				NodeList nList = doc.getElementsByTagName("item");
+				for (int temp = 0; temp < nList.getLength(); temp++) {
+					Node nNode = nList.item(temp);
+					if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+						Element eElement = (Element) nNode;
+						metaData_media.put(
+								eElement.getElementsByTagName("id").item(0)
+										.getTextContent()
+										+ ","
+										+ eElement.getElementsByTagName("duration").item(0)
+										.getTextContent(), eElement
+										.getElementsByTagName("name").item(0)
+										.getTextContent());
+					}
+				}
+				request.setAttribute("metaData_media", metaData_media);
+				request.getRequestDispatcher("/views/tavantads.jsp").forward(
+						request, response);
+			}
+		} catch (Exception e) {
+			LOGGER.error("Ohh Something went wrong while getiing ad videos: "+e);
+		}
+	}
 }
