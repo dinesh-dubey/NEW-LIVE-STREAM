@@ -149,7 +149,7 @@ public class Live extends HttpServlet {
 
 						list_Vod.add(hashMap_Vod);
 					}
-					LOGGER.error("VOD COUNT: "+ list_Vod.size());
+					LOGGER.info("VOD COUNT: "+ list_Vod.size());
 					request.setAttribute("list_vod", list_Vod);
 					request.setAttribute("player_id",
 							property.getProperty("PLAYER_ID"));
