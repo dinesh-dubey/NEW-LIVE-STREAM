@@ -17,6 +17,8 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.log4j.Logger;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -49,6 +51,7 @@ public class Live extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		LoadProperty loadProperty = new LoadProperty();
+		LOGGER.info("REquest Referal::"+request.getRequestURI());
 		StringBuilder url= new StringBuilder();
 		url.append(loadProperty.getProperty("SERVICE_URL")).append("api_v3/?service=session&action=start&secret=").append(loadProperty.getProperty("ADMIN_SECRET")).append("&userId=").append(loadProperty.getProperty("USER_SECRET")).
 		append("&type=").append(loadProperty.getProperty("TYPE")).append("&partnerId=").append(loadProperty.getProperty("PARTNER_ID")).append("&expiry=").append(loadProperty.getProperty("EXPIRY_TIME"));
@@ -72,8 +75,11 @@ public class Live extends HttpServlet {
 			String abc = sb.toString();
 			ks = abc.substring(abc.indexOf("<result>"),
 					abc.indexOf("</result>")).replace("<result>", "");
-			getVodData(request, response, ks);
-			getLiveData(request, response, ks);
+			String requestReferal =  request.getRequestURI();
+			getVodData(request, response, ks, requestReferal);
+			if(requestReferal.equalsIgnoreCase("/livestream/")){
+				getLiveData(request, response, ks);
+			}
 
 		} else {
 			LOGGER.info("POST request not worked");
@@ -81,7 +87,7 @@ public class Live extends HttpServlet {
 	}
 
 	public void getVodData(HttpServletRequest request,
-			HttpServletResponse response, String ks) {
+			HttpServletResponse response, String ks, String referal) {
 		try {
 			URL obj = new URL(
 					"http://kalturalivestream/api_v3/?service=media&action=list&ks="
@@ -113,6 +119,8 @@ public class Live extends HttpServlet {
 				Document doc = builder.parse(input);
 				Element root = doc.getDocumentElement();
 				NodeList nList = doc.getElementsByTagName("item");
+				JSONArray vodJsonArray= new JSONArray();
+				JSONObject vodJsonData= new JSONObject();
 				for (int temp = 0; temp < nList.getLength(); temp++) {
 					hashMap_Vod = new HashMap();
 					Node nNode = nList.item(temp);
@@ -125,26 +133,52 @@ public class Live extends HttpServlet {
 								.equalsIgnoreCase(
 										property.getProperty("TAG_NAME_FOR_ADS")))
 							continue;
-						hashMap_Vod.put("media_entry_URL", eElement
-								.getElementsByTagName("dataUrl").item(0)
-								.getTextContent());
-
-						hashMap_Vod.put("media_entry_name", eElement
-								.getElementsByTagName("name").item(0)
-								.getTextContent());
-						hashMap_Vod.put("media_entry_thumbnail", eElement
-								.getElementsByTagName("thumbnailUrl").item(0)
-								.getTextContent());
-						hashMap_Vod.put("media_entry_duration", eElement
-								.getElementsByTagName("duration").item(0)
-								.getTextContent());
-						hashMap_Vod.put("media_entryId", eElement
-								.getElementsByTagName("id").item(0)
-								.getTextContent());
-
-						list_Vod.add(hashMap_Vod);
+						if(null!=referal && referal.equalsIgnoreCase("/livestream/Live")){
+							JSONObject vodObj = new JSONObject();
+							vodObj.put("media_entry_URL", eElement
+									.getElementsByTagName("dataUrl").item(0)
+									.getTextContent());
+							
+							vodObj.put("media_entry_name", eElement
+									.getElementsByTagName("name").item(0)
+									.getTextContent());
+							vodObj.put("media_entry_thumbnail", eElement
+									.getElementsByTagName("thumbnailUrl").item(0)
+									.getTextContent());
+							vodObj.put("media_entry_duration", eElement
+									.getElementsByTagName("duration").item(0)
+									.getTextContent());
+							vodObj.put("media_entryId", eElement
+									.getElementsByTagName("id").item(0)
+									.getTextContent());
+							vodJsonArray.put(vodObj);
+						}
+						if(null!=referal && referal.equalsIgnoreCase("/livestream/")){
+							hashMap_Vod.put("media_entry_URL", eElement
+									.getElementsByTagName("dataUrl").item(0)
+									.getTextContent());
+							
+							hashMap_Vod.put("media_entry_name", eElement
+									.getElementsByTagName("name").item(0)
+									.getTextContent());
+							hashMap_Vod.put("media_entry_thumbnail", eElement
+									.getElementsByTagName("thumbnailUrl").item(0)
+									.getTextContent());
+							hashMap_Vod.put("media_entry_duration", eElement
+									.getElementsByTagName("duration").item(0)
+									.getTextContent());
+							hashMap_Vod.put("media_entryId", eElement
+									.getElementsByTagName("id").item(0)
+									.getTextContent());
+							list_Vod.add(hashMap_Vod);
+						}
 					}
 				}
+				if(null!=referal && referal.equalsIgnoreCase("/livestream/Live")){
+				vodJsonData.put("vodJson",vodJsonArray);
+				response.getWriter().write(vodJsonData.toString());
+				}
+				if(null!=referal && referal.equalsIgnoreCase("/livestream/")){
 				request.setAttribute("list_vod", list_Vod);
 				request.setAttribute("player_id",
 						property.getProperty("PLAYER_ID"));
@@ -155,6 +189,7 @@ public class Live extends HttpServlet {
 				request.setAttribute("ui_conf_id",
 						property.getProperty("UI_CONF_ID"));
 				request.setAttribute("live_entryId", property.getProperty("LIVE_ENTRY_ID"));
+				}
 				LOGGER.info("VOD COUNT: "+ list_Vod.size());
 			}
 		} catch (Exception e) {
