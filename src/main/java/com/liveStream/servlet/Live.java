@@ -4,31 +4,23 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.StringReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 
 import com.liveStream.LoadProperty;
 
@@ -56,8 +48,11 @@ public class Live extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		URL obj = new URL(
-				"http://kalturalivestream/api_v3/?service=session&action=start&secret=e9d684a068e7ac7d99432f0a6583246e&userId=fc1e90f90de623f429208f7761c0f786&type=2&partnerId=100&expiry=345345345");
+		LoadProperty loadProperty = new LoadProperty();
+		StringBuilder url= new StringBuilder();
+		url.append(loadProperty.getProperty("SERVICE_URL")).append("api_v3/?service=session&action=start&secret=").append(loadProperty.getProperty("ADMIN_SECRET")).append("&userId=").append(loadProperty.getProperty("USER_SECRET")).
+		append("&type=").append(loadProperty.getProperty("TYPE")).append("&partnerId=").append(loadProperty.getProperty("PARTNER_ID")).append("&expiry=").append(loadProperty.getProperty("EXPIRY_TIME"));
+		URL obj = new URL(url.toString());
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("POST");
 		con.setRequestProperty("Content-Type",
@@ -149,18 +144,18 @@ public class Live extends HttpServlet {
 
 						list_Vod.add(hashMap_Vod);
 					}
-					LOGGER.info("VOD COUNT: "+ list_Vod.size());
-					request.setAttribute("list_vod", list_Vod);
-					request.setAttribute("player_id",
-							property.getProperty("PLAYER_ID"));
-					request.setAttribute("partner_id",
-							property.getProperty("PARTNER_ID"));
-					request.setAttribute("script_source",
-							property.getProperty("SCRIPT_SOURCE"));
-					request.setAttribute("ui_conf_id",
-							property.getProperty("UI_CONF_ID"));
- 					request.setAttribute("live_entryId", property.getProperty("LIVE_ENTRY_ID"));
 				}
+				request.setAttribute("list_vod", list_Vod);
+				request.setAttribute("player_id",
+						property.getProperty("PLAYER_ID"));
+				request.setAttribute("partner_id",
+						property.getProperty("PARTNER_ID"));
+				request.setAttribute("script_source",
+						property.getProperty("SCRIPT_SOURCE"));
+				request.setAttribute("ui_conf_id",
+						property.getProperty("UI_CONF_ID"));
+				request.setAttribute("live_entryId", property.getProperty("LIVE_ENTRY_ID"));
+				LOGGER.info("VOD COUNT: "+ list_Vod.size());
 			}
 		} catch (Exception e) {
 			LOGGER.error("Ohh Something went wrong while getting VOD:"+e);

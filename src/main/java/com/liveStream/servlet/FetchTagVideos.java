@@ -51,9 +51,12 @@ public class FetchTagVideos extends HttpServlet {
 	 *      response)
 	 */
 	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		URL obj = new URL(
-				"http://kalturalivestream/api_v3/?service=session&action=start&secret=e9d684a068e7ac7d99432f0a6583246e&userId=fc1e90f90de623f429208f7761c0f786&type=2&partnerId=100&expiry=345345345");
+			HttpServletResponse response) throws ServletException, IOException { 
+		LoadProperty loadProperty = new LoadProperty();
+		StringBuilder url= new StringBuilder();
+		url.append(loadProperty.getProperty("SERVICE_URL")).append("api_v3/?service=session&action=start&secret=").append(loadProperty.getProperty("ADMIN_SECRET")).append("&userId=").append(loadProperty.getProperty("USER_SECRET")).
+		append("&type=").append(loadProperty.getProperty("TYPE")).append("&partnerId=").append(loadProperty.getProperty("PARTNER_ID")).append("&expiry=").append(loadProperty.getProperty("EXPIRY_TIME"));
+		URL obj = new URL(url.toString());
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 		con.setRequestMethod("POST");
 		con.setRequestProperty("Content-Type",

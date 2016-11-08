@@ -26,7 +26,7 @@ public class LoadProperty {
 	public Properties getPropertiesObj() {
 
 		InputStream input = null;
-		String key = "ABC";
+		String key = "kalturaKey";
 		String value = "";
 
 		String filename = "config.properties";
