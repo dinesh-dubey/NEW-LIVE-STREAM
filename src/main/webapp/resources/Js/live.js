@@ -3,9 +3,10 @@ var entryId;
 $(document).ready(function() {
 	$(".thumbnail").click(function () {
 	    $(".thumbnail").removeClass("active");
-	    $(this).addClass("active");        
+	    $(this).addClass("active");  
+	  
 	});
-	});
+});
 
 function changeMainUrl(videoId, current_play_type) {
 	var size = document.getElementById("xID").value;

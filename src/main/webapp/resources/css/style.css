@@ -128,13 +128,15 @@ h3{
 	margin:0 auto;
 }
 .closeBtn{
-	position:absolute;
-	top:20px;
-	right:10px;
-	border:none;
-	background:url("../images/close.png") no-repeat 0 0;
-	width:32px;
-	height:32px;
+    position: absolute;
+    top: 0px;
+    right: -30px;
+    border: none;
+    background: #343434 url(../images/close.png) no-repeat 0 0;
+    width: 30px;
+    height: 30px;
+    background-size: 100%;
+    border: 7px solid #343434;
 }
 .video-player img{ width:100%}
 
