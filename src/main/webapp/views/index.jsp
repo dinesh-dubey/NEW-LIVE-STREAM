@@ -55,7 +55,7 @@
 		<div class="tealive">
 			<div class="fr">
 				<img class="pad10 fl"
-					src="<%=request.getContextPath()%>/resources/images/engage_logo.png" />
+					src="<%=request.getContextPath()%>/resources/images/engage_logo.png" style="height:40px;" />
 				<span class="pad10 fl livetext"><span class="redDot"></span>Live</span>
 			</div>
 		</div>
@@ -75,12 +75,12 @@
 
 		<script> jQuery("#vod_close_button").hide();</script>
 		<div id="kaltura_player_1477484934" class="player-style"
-			style="height: 610px;">
+			style="height: 410px;">
 			<c:if test="${live_hashmap.size() > 0}">
 
 				<object id="kaltura_player" name="kaltura_player"
 					type="application/x-shockwave-flash" allowFullScreen="true"
-					allowNetworking="all" allowScriptAccess="always" height="610"
+					allowNetworking="all" allowScriptAccess="always" height="400"
 					width="100%"
 					data="http://kalturalivestream/index.php/kwidget/cache_st/1477654856/wid/_100/uiconf_id/6709457/entry_id/${live_entryId}">
 					<param name="allowFullScreen" value="true" />
@@ -95,7 +95,7 @@
 			<c:if test="${live_hashmap.size() == 0}">
 				<object id="kaltura_player" name="kaltura_player"
 					type="application/x-shockwave-flash" allowFullScreen="true"
-					allowNetworking="all" allowScriptAccess="always" height="610"
+					allowNetworking="all" allowScriptAccess="always" height="400"
 					width="100%"
 					data="http://kalturalivestream/index.php/kwidget/cache_st/1477654856/wid/_100/uiconf_id/6709457/entry_id/${list_vod[0].media_entryId}">
 					<param name="allowFullScreen" value="true" />

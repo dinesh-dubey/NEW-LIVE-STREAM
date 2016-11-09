@@ -12,7 +12,8 @@ function getVod(){
 	      success:function(response) {
 			 var json = JSON.parse(response);
 	    	 var data = json.vodJson;
-			 var contentSlider = "";
+			 if(data != undefined){
+			  var contentSlider = "";
 	    		for(var i=0 ; i<data.length; i++){
 	    			var item = data[i];
 	    			var vodVideos = $('#vodTemplate').html()
@@ -23,7 +24,13 @@ function getVod(){
 	    		}
 				$('.content-slider').html(contentSlider); 
 				console.log("vodlist");
-	    	  
+	    	  $(".thumbnail").click(function () {
+			$(".thumbnail").removeClass("active");
+			$(this).addClass("active");  
+			
+	});
+			 }
+			
 	      }
 	    });
 	   
