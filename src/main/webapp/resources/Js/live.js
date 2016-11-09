@@ -29,12 +29,12 @@ function playAdd(videoId, current_play_type, time_start) {
 	$('#kaltura_player')
 	.attr(
 			'data',
-			"http://kalturalivestream/index.php/kwidget/cache_st/1477654856/wid/_100/uiconf_id/6709457/entry_id/"
+			"http://kalturalivestream/index.php/kwidget/cache_st/1478673713/wid/_100/uiconf_id/6709458/entry_id/"
 			+ entryId);
 	$("#kaltura_player param[name=movie]")
 	.attr(
 			'value',
-			"http://kalturalivestream/index.php/kwidget/cache_st/1477654856/wid/_100/uiconf_id/6709457/entry_id/"
+			"http://kalturalivestream/index.php/kwidget/cache_st/1478673713/wid/_100/uiconf_id/6709458/entry_id/"
 			+ entryId);
 	$("#player").attr('data-current_play_type', current_play_type);
 }
