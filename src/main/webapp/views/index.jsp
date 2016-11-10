@@ -17,7 +17,7 @@
 	src="<%=request.getContextPath()%>/resources/libs/jquery.min.v3.1.1.js"></script>
 <script
 	src="<%=request.getContextPath()%>/resources/libs/lightslider.js"></script>
-<script type="text/javascript" src="http://html5.kaltura.org/js"></script>
+<!--<script type="text/javascript" src="http://html5.kaltura.org/js"></script>-->
 
 
 
@@ -48,16 +48,16 @@
 	<header class="header overhid">
 		<span class="fl pad10"><img
 			src="<%=request.getContextPath()%>/resources/images/tavant_logo.png"
-			height="30px" /></span> <span class="fr pad10"><img
+			 class="tavantLogo" /></span> <span class="fr pad10 padbotNone "><img
 			src="<%=request.getContextPath()%>/resources/images/tech_connect_logo.png"
-			height="35px" /></span>
+			class="tectConnectLogo" /></span>
 	</header>
 	<div class="content-container">
 		<div class="tealive">
 			<div class="fr">
-				<img class="pad10 fl"
-					src="<%=request.getContextPath()%>/resources/images/engage_logo.png" style="height:40px;" />
-				<span class="pad10 fl livetext"><span class="redDot"></span>Live</span>
+					<span id="liveLogo" class="pad10 fl livetext"><span class="redDot"></span>Live</span>
+			<img class="pad10 fl engage-logo"
+					src="<%=request.getContextPath()%>/resources/images/engage_logo.png"  />
 			</div>
 		</div>
 	</div>
@@ -75,13 +75,12 @@
 		</div>
 
 		<script> jQuery("#vod_close_button").hide();</script>
-		<div id="kaltura_player_1477484934" class="player-style"
-			style="height: 410px;">
+		<div id="kaltura_player_1477484934" class="player-style">
 			<c:if test="${live_hashmap.size() > 0}">
 
 				<object id="kaltura_player" name="kaltura_player"
 					type="application/x-shockwave-flash" allowFullScreen="true"
-					allowNetworking="all" allowScriptAccess="always" height="400"
+					allowNetworking="all" allowScriptAccess="always" height="450"
 					width="100%"
 					data="http://kalturalivestream/index.php/kwidget/cache_st/1477654856/wid/_100/uiconf_id/6709457/entry_id/${live_entryId}">
 					<param name="allowFullScreen" value="true" />
@@ -96,7 +95,7 @@
 			<c:if test="${live_hashmap.size() == 0}">
 				<object id="kaltura_player" name="kaltura_player"
 					type="application/x-shockwave-flash" allowFullScreen="true"
-					allowNetworking="all" allowScriptAccess="always" height="400"
+					allowNetworking="all" allowScriptAccess="always" height="450"
 					width="100%"
 					data="http://kalturalivestream/index.php/kwidget/cache_st/1477654856/wid/_100/uiconf_id/6709457/entry_id/${list_vod[0].media_entryId}">
 					<param name="allowFullScreen" value="true" />
@@ -130,47 +129,82 @@
 	<script>
 		$(document).ready(function() {	
 			$('#responsive').lightSlider({
-				item : 7,
+				item : 10,
 				loop : false,
 				slideMove : 2,
-				slideMargin : 30,
+				slideMargin : 20,
 				easing : 'cubic-bezier(0.25, 0, 0.25, 1)',
 				speed : 600,
 				responsive : [ {
 					breakpoint : 1024,
 					settings : {
-						item : 6,
+						item : 7,
 						slideMove : 1,
 						slideMargin : 6,
 					}
 				}, {
 					breakpoint : 840,
 					settings : {
-						item : 4,
+						item : 6,
 						slideMove : 1
 					}
-				}, {
+				}, 
+				{
+					breakpoint : 720,
+					settings : {
+						item : 5,
+						slideMove : 1,
+						slideMargin : 10,
+					}
+				}, 
+				{
 					breakpoint : 640,
 					settings : {
+						item : 4,
+						slideMove : 1,
+						slideMargin : 10,
+					}
+				},
+				{
+					breakpoint : 520,
+					settings : {
 						item : 3,
-						slideMove : 1
+						slideMove : 1,
+						slideMargin : 10,
 					}
 				},
 				{
 					breakpoint : 480,
 					settings : {
-						item : 2,
-						slideMove : 1
+						item : 3,
+						slideMove : 1,
+						slideMargin : 8,
 					}
 				},
 				{
-					breakpoint : 320,
+					breakpoint : 360,
 					settings : {
-						item : 1,
-						slideMove : 1
+						item : 2,
+						slideMove : 1,
+						slideMargin : 5,
 					}
 				}]
 			});
+			var winWid = $(window).width();
+			if (winWid < 375){
+				$("#kaltura_player").attr("height");
+				$("#kaltura_player").attr("height", 330);
+			} else if (winWid<410 && winWid>375){
+				$("#kaltura_player").attr("height");
+				$("#kaltura_player").attr("height", 420);
+			}else if (winWid<640 && winWid>410){
+				$("#kaltura_player").attr("height");
+				$("#kaltura_player").attr("height", 500);
+			}else if (winWid<800 && winWid>640){
+				$("#kaltura_player").attr("height");
+				$("#kaltura_player").attr("height", 720);
+			}
+			
 		});
 	</script>
 	<input type="hidden" id="xID" name="x" value="${livestreamflag}">

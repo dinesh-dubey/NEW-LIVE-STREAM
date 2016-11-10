@@ -47,10 +47,19 @@ table {
 .fr{float: right}
 .overhid{overflow: hidden}
 .clear{clear: both}
+.padbotNone{padding-bottom:0;}
 .pad10{padding: 10px}
 .pad20{padding: 20px}
 .padTB10{padding: 10px 0px}
 .padLR10{padding: 0px 10px}
+.clearfix:before,
+.clearfix:after{ 
+	display: table;
+	content: " ";
+}
+.clearfix:after{
+	clear:both;
+}
 /*body*/
 
 .body{background-color: #0f0f0f;font-family: "Raleway", Arial, sans-serif}
@@ -66,7 +75,7 @@ table {
     margin-right: 10px;
 }
 .content-container{
-	padding:20px 2%;
+	padding:10px 2%;
 	width:96%;
 }
 h3{
@@ -81,10 +90,11 @@ h3{
 	overflow:hidden;
 }
 .content-slider li p{
-	font-size:14px;
+	font-size:13px;
 	color:#999898;
-	padding:15px 0 0;
+	padding:10px 5px 3px;
 	text-align:left;
+	
 }
 .content-slider li a{
 	position:relative;
@@ -101,15 +111,16 @@ h3{
 }
 	
 .content-slider li img{
-	min-height: 150px;
+	min-height: 100px;
 	opacity:0.5;
-	height:150px;
+	height:100px;
 }
 .content-slider li a.active img{
 	opacity:1;
 }
 .lSSlideOuter .lSPager.lSpg{display:none;}
-
+.lSSlideOuter .lightSlider{padding-left:50px;padding-right:0;}
+.lSAction > a{top:0;margin-top:0;}
 .player-style{
 	margin:0 auto;
 	border:4px solid #343434;
@@ -143,29 +154,77 @@ h3{
 #videoFrame{
 	width:100%;
 }
+.tectConnectLogo{
+	height:35px;
+}
+.tavantLogo{
+	height:30px;
+}
+.engage-logo{
+	height:40px;
+}
+.item{margin-top:10px;}
 @media only screen and (max-width: 1600px) {
 	.player-style, .head, .close-outer{
-		width:70%;
+		width:47%;
 	}
 }
 @media only screen and (max-width: 1200px) {
 	.player-style, .head, .close-outer{
-		width:70%;
+		width:55%;
 	}
 }
 
 @media only screen and (max-width: 1024px) {
 	.player-style, .head, .close-outer{
-		width:100%;
-	}
-	.lSAction > a{
-		margin-top:-20px;
+		width:70%;
 	}
 }
 
 @media only screen and (max-width: 800px) {
-
-.lSAction > a{
-	top:8%;
-}	
+	.player-style, .head, .close-outer{
+		width:98%;
+		margin:0;
+	}
+	.video-player-test{
+		padding-top:20px 0 0;
+	}
+	.closeBtn{
+		right:-5px;
+		top:0;
+	}
+}
+@media only screen and (max-width: 640px) {
+	.tectConnectLogo{
+		width:100px;
+		height:auto;
+	}
+	.tavantLogo{
+		width:100px;
+		height:auto;
+	}
+	.livetext{
+		margin-top:5px;
+		font-size:16px;
+	}
+	.engage-logo{
+		height:30px;
+	}
+}
+@media only screen and (max-width: 480px) {
+	.player-style, .head, .close-outer{
+		width:97%;
+	}
+	.content-slider li img{
+		height:80px;
+		min-height:80px;
+		width:100%;
+	}
+	.lSSlideOuter .lightSlider{
+		padding-left:40px;
+	}
+	.content-container{
+		padding:0;
+	}
+	
 }

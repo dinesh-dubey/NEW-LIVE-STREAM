@@ -9,6 +9,15 @@ $(document).ready(function() {
 });
 
 function changeMainUrl(videoId, current_play_type) {
+	if('close' == current_play_type){
+	$('#liveLogo').show();
+	}	
+	if('vod' == current_play_type){
+	$('#liveLogo').hide();
+	}	
+	if('live' == current_play_type){
+	$('#liveLogo').show();
+	}	
 	var size = document.getElementById("xID").value;
 	entryId = videoId;
 	data_url_live = "http://kalturalivestream/index.php/kwidget/cache_st/1477654856/wid/_100/uiconf_id/6709457/entry_id/"
@@ -24,6 +33,9 @@ function changeMainUrl(videoId, current_play_type) {
 }
 
 function playAdd(videoId, current_play_type, time_start) {
+if('ad' == current_play_type){
+	$('#liveLogo').hide();
+	}
 	entryId = videoId;
 	var current = $("#player").attr("data-current_play_type");
 	jQuery("#vod_close_button").hide();

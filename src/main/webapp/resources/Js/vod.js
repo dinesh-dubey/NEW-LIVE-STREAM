@@ -37,44 +37,64 @@ function getVod(){
 	}
 	function buildSlider(){
     			$('#responsive').lightSlider({
-				item : 7,
+				item : 10,
 				loop : false,
 				slideMove : 2,
-				slideMargin : 30,
+				slideMargin : 20,
 				easing : 'cubic-bezier(0.25, 0, 0.25, 1)',
 				speed : 600,
 				responsive : [ {
 					breakpoint : 1024,
 					settings : {
-						item : 6,
+						item : 7,
 						slideMove : 1,
 						slideMargin : 6,
 					}
 				}, {
 					breakpoint : 840,
 					settings : {
-						item : 4,
+						item : 6,
 						slideMove : 1
 					}
-				}, {
+				}, 
+				{
+					breakpoint : 720,
+					settings : {
+						item : 5,
+						slideMove : 1,
+						slideMargin : 10,
+					}
+				}, 
+				{
 					breakpoint : 640,
 					settings : {
+						item : 4,
+						slideMove : 1,
+						slideMargin : 10,
+					}
+				},
+				{
+					breakpoint : 520,
+					settings : {
 						item : 3,
-						slideMove : 1
+						slideMove : 1,
+						slideMargin : 10,
 					}
 				},
 				{
 					breakpoint : 480,
 					settings : {
-						item : 2,
-						slideMove : 1
+						item : 3,
+						slideMove : 1,
+						slideMargin : 8,
 					}
 				},
 				{
-					breakpoint : 320,
+					breakpoint : 360,
 					settings : {
-						item : 1,
-						slideMove : 1
+						item : 2,
+						slideMove : 1,
+						slideMargin : 5,
 					}
 				}]
 			});
