@@ -76,9 +76,9 @@ public class Live extends HttpServlet {
 			ks = abc.substring(abc.indexOf("<result>"),
 					abc.indexOf("</result>")).replace("<result>", "");
 			String requestReferal =  request.getRequestURI();
-			getVodData(request, response, ks, requestReferal);
+			getVodData(request, response, ks, requestReferal, loadProperty);
 			if(requestReferal.equalsIgnoreCase("/livestream/")){
-				getLiveData(request, response, ks);
+				getLiveData(request, response, ks, loadProperty);
 			}
 
 		} else {
@@ -87,10 +87,10 @@ public class Live extends HttpServlet {
 	}
 
 	public void getVodData(HttpServletRequest request,
-			HttpServletResponse response, String ks, String referal) {
+			HttpServletResponse response, String ks, String referal, LoadProperty loadProperty) {
 		try {
 			URL obj = new URL(
-					"http://kalturalivestream/api_v3/?service=media&action=list&ks="
+					loadProperty.getProperty("SERVICE_URL")+"api_v3/?service=media&action=list&ks="
 							+ ks + "&filter:tagsLike=");
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 			con.setRequestMethod("POST");
@@ -198,12 +198,12 @@ public class Live extends HttpServlet {
 	}
 
 	public void getLiveData(HttpServletRequest request,
-			HttpServletResponse response, String ks) {
+			HttpServletResponse response, String ks, LoadProperty loadProperty) {
 		try {
 			HashMap<String, String> live_data = new HashMap<String, String>();
 			String entryId = property.getProperty("LIVE_ENTRY_ID");
 			URL obj = new URL(
-					"http://kalturalivestream/api_v3/?service=livestream&action=get&ks="
+					loadProperty.getProperty("SERVICE_URL")+"api_v3/?service=livestream&action=get&ks="
 							+ ks + "&entryId=" + entryId);
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 			con.setRequestMethod("POST");
@@ -219,6 +219,7 @@ public class Live extends HttpServlet {
 					sb.append(inputLine);
 				}
 				in.close();
+				LOGGER.info("--LIVE data--: "+sb.toString());
 				DocumentBuilderFactory factory = DocumentBuilderFactory
 						.newInstance();
 				DocumentBuilder builder = factory.newDocumentBuilder();

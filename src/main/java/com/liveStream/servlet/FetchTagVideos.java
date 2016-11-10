@@ -75,18 +75,19 @@ public class FetchTagVideos extends HttpServlet {
 			String abc = sb.toString();
 			ks = abc.substring(abc.indexOf("<result>"),
 					abc.indexOf("</result>")).replace("<result>", "");
-			getAdds(request, response, ks);
+			getAdds(request, response, ks, loadProperty);
 		} else {
 			LOGGER.info("POST request not worked");
 		}
 	}
+	
 
 	public void getAdds(HttpServletRequest request,
-			HttpServletResponse response, String ks) {
+			HttpServletResponse response, String ks, LoadProperty loadProperty) {
 		try {
 			Map<String, String> metaData_media = new HashMap<String, String>();
 			URL obj = new URL(
-					"http://kalturalivestream/api_v3/?service=media&action=list&ks="
+					loadProperty.getProperty("SERVICE_URL")+"api_v3/?service=media&action=list&ks="
 							+ ks + "&filter:tagsLike=tavant");
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 			con.setRequestMethod("POST");

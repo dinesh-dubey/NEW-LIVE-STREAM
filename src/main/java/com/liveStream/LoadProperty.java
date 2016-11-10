@@ -42,7 +42,7 @@ public class LoadProperty {
 				LOGGER.error(e);
 			}
 			value = prop.getProperty(key);
-			LOGGER.info("Key : " + key + ", Value : " + value);
+//			LOGGER.info("Key : " + key + ", Value : " + value);
 
 		}
 
