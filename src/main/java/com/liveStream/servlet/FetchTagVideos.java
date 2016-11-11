@@ -88,7 +88,7 @@ public class FetchTagVideos extends HttpServlet {
 			Map<String, String> metaData_media = new HashMap<String, String>();
 			URL obj = new URL(
 					loadProperty.getProperty("SERVICE_URL")+"api_v3/?service=media&action=list&ks="
-							+ ks + "&filter:tagsLike=tavant");
+							+ ks + "&filter:tagsLike="+property.getProperty("TAG_NAME_FOR_ADS"));
 			HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 			con.setRequestMethod("POST");
 			con.setRequestProperty("Content-Type",
