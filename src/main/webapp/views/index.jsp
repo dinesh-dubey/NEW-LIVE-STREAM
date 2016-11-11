@@ -32,6 +32,17 @@
 <script src="<%=request.getContextPath()%>/resources/Js/custom.js"></script>
 <script src="<%=request.getContextPath()%>/resources/Js/live.js"></script>
 <script src="<%=request.getContextPath()%>/resources/Js/vod.js"></script>
+	<script id="vodTemplate" type="text/template">  
+				<li><a href="javascript:void(0)" class="thumbnail"
+					onclick="changeMainUrl('{{media_entryId}}', 'vod')"><img
+						alt="Preview Image 1" src="{{media_entry_thumbnail}}"
+						data-image="{{media_entry_thumbnail}}"
+						data-description="{{media_entry_name}}">
+							<small></small>
+							 </a>
+					<p>{{media_entry_name}}</p>
+				</li>
+	</script>
 </head>
 <body class="body">
 	<header class="header overhid">
