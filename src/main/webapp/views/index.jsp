@@ -43,6 +43,7 @@
 					<p>{{media_entry_name}}</p>
 				</li>
 	</script>
+<script src="//assets.adobedtm.com/d8777c4d9cbebfbdad3723de5a9e9b30c24ad5fe/satelliteLib-fb9bc886fa23292d2d7ede842c6d56507a62d6b7-staging.js"></script>
 </head>
 <body class="body">
 	<header class="header overhid">
@@ -100,8 +101,9 @@
 		<ul id="responsive" class="content-slider">
 			<c:forEach items="${list_vod}" var="vod_obj">
 				<li><a href="javascript:void(0)" class="thumbnail"
-					onclick="changeMainUrl('${vod_obj['media_entryId']}', 'vod')"><img
-						alt="Preview Image 1" src="${vod_obj['media_entry_thumbnail']} "
+					onclick="changeMainUrl('${vod_obj['media_entryId']}', 'vod')"
+					data-videoName="${vod_obj['media_entry_name']}><img
+						alt="${vod_obj['media_entry_name']}" src="${vod_obj['media_entry_thumbnail']} "
 						data-image="${vod_obj['media_entry_thumbnail']} "
 						data-description="${vod_obj['media_entry_name']} ">
 							<small></small>
@@ -195,5 +197,6 @@
 		});
 	</script>
 	<input type="hidden" id="xID" name="x" value="${livestreamflag}">
+	<script type="text/javascript">_satellite.pageBottom();</script>
 </body>
 </html>
