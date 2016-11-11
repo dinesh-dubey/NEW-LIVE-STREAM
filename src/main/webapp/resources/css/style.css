@@ -139,6 +139,7 @@ h3{
 	margin:0 auto;
 }
 .closeBtn{
+	overflow:hidden;
     position: absolute;
     top: 0px;
     right: -30px;
@@ -192,7 +193,12 @@ h3{
 	.closeBtn{
 		right:-5px;
 		top:0;
+		display:block;
+		box-sizing: border-box;
 	}
+	 .closeBtn{
+	 height:36px;
+	 }
 }
 @media only screen and (max-width: 640px) {
 	.tectConnectLogo{
@@ -210,6 +216,9 @@ h3{
 	.engage-logo{
 		height:30px;
 	}
+	 .closeBtn{
+	 height:36px;
+	 }
 }
 @media only screen and (max-width: 480px) {
 	.player-style, .head, .close-outer{
@@ -221,10 +230,11 @@ h3{
 		width:100%;
 	}
 	.lSSlideOuter .lightSlider{
-		padding-left:40px;
+		padding-left:0px;
 	}
 	.content-container{
 		padding:0;
 	}
 	
 }
+
