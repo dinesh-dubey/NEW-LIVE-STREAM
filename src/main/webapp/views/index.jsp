@@ -84,8 +84,12 @@
 					"uiconf_id" : 36776161,
 					"flashvars" : {
 						"streamerType" : "auto",
-						"autoplay":true
-												
+						"autoplay":true,
+						"titleLabel": {
+							'plugin' : true,
+							'align' : 'left',
+							'text' : '{mediaProxy.entry.name}'
+						}					
 					},
 					"cache_st" : 1477484309,
 					"entry_id" :"${live_hashmap['live_entryId']}"
