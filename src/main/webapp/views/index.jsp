@@ -81,8 +81,8 @@
 		<script>	
 				kWidget.embed({
 					"targetId" : "kaltura_player_1477484309",
-					"wid" : "_2199811",
-					"uiconf_id" : 36776161,
+					"wid" : "_${partner_id}",
+					"uiconf_id" : "${ui_conf_id}",
 					"flashvars" : {
 						"streamerType" : "auto",
 						"autoplay":true,
@@ -92,7 +92,7 @@
 							'text' : '{mediaProxy.entry.name}'
 						}					
 					},
-					"cache_st" : 1477484309,
+					"cache_st" : 1478856194,
 					"entry_id" :"${live_hashmap['live_entryId']}"
 				});
 			</script>
@@ -100,15 +100,17 @@
 	<div class="item" id="refresh-after-ajax">
 		<ul id="responsive" class="content-slider">
 			<c:forEach items="${list_vod}" var="vod_obj">
-				<li><a href="javascript:void(0)" class="thumbnail"
+				<li>
+				<a href="javascript:void(0)" class="thumbnail"
 					onclick="changeMainUrl('${vod_obj['media_entryId']}', 'vod')"
-					data-videoName="${vod_obj['media_entry_name']}><img
+					data-videoName="${vod_obj['media_entry_name']}"><img
 						alt="${vod_obj['media_entry_name']}" src="${vod_obj['media_entry_thumbnail']} "
 						data-image="${vod_obj['media_entry_thumbnail']} "
 						data-description="${vod_obj['media_entry_name']} ">
 							<small></small>
 							 </a>
-					<p>${vod_obj['media_entry_name']}</p></li>
+					<p>${vod_obj['media_entry_name']}</p>
+					</li>
 			</c:forEach>
 		</ul>
 	</div>
@@ -198,5 +200,7 @@
 	</script>
 	<input type="hidden" id="xID" name="x" value="${livestreamflag}">
 	<script type="text/javascript">_satellite.pageBottom();</script>
+	<input type="hidden" id="uiconf_id" name="x" value="${ui_conf_id}">
+	<input type="hidden" id="partnerid" name="x" value="${partner_id}">
 </body>
 </html>

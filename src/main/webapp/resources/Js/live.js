@@ -1,11 +1,14 @@
 var entryId;
-
+var uiconf_id; 
+var partnerid; 
 $(document).ready(function() {
 	$(".thumbnail").click(function () {
 	    $(".thumbnail").removeClass("active");
 	    $(this).addClass("active");  
 	  
 	});
+	uiconf_id = document.getElementById("uiconf_id").value;
+	partnerid = document.getElementById("partnerid").value;
 });
 
 function changeMainUrl(videoId, current_play_type) {
@@ -19,6 +22,7 @@ function changeMainUrl(videoId, current_play_type) {
 	$('#liveLogo').show();
 	}	
 	var size = document.getElementById("xID").value;
+	
 	entryId = videoId;
 
 	if (size > 0) {
@@ -28,16 +32,16 @@ function changeMainUrl(videoId, current_play_type) {
 	jQuery("#vod_close_button").show();
 	 $("#player").html(kWidget.embed({
 			"targetId" : "kaltura_player_1477484309",
-			"wid" : "_2199811",
-			"uiconf_id" : 36776161,
+			"wid" : "_"+partnerid,
+			"uiconf_id" : uiconf_id,
 			"flashvars" : {
 				"streamerType" : "auto",
-				"autoplay":true,
+				"autoplay":true/*,
 				"titleLabel": {
 					'plugin' : true,
 					'align' : 'left',
 					'text' : '{mediaProxy.entry.name}'
-				}					
+				}					*/
 			},
 			"cache_st" : 1477484309,
 			"entry_id" : entryId
@@ -58,13 +62,13 @@ if('ad' == current_play_type){
 
 	$("#player").html(kWidget.embed({
 				"targetId" : "kaltura_player_1477484309",
-				"wid" : "_2199811",
-				"uiconf_id" : 36776161,
+				"wid" : "_"+partnerid,
+				"uiconf_id" : uiconf_id,
 				"flashvars" : {
 					'streamerType' : 'auto',
 						'autoPlay': true,
-						'mediaProxy.mediaPlayFrom' : time_start,
-						'controlBarContainer.plugin': false
+						'mediaProxy.mediaPlayFrom' : time_start/*,
+						'controlBarContainer.plugin': false*/
 						
 				},
 				"cache_st" : 1477484309,
